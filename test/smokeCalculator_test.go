@@ -1,11 +1,15 @@
-package calculator
+//go:build unit
+// +build unit
+
+package test
 
 import (
+	"TestCalculator/calculator"
 	"errors"
 	"testing"
 )
 
-func TestCalculate(t *testing.T) {
+func TestCalculate_smoke(t *testing.T) {
 	tests := []struct {
 		operand1 float64
 		operator string
@@ -22,7 +26,7 @@ func TestCalculate(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		result, err := Calculate(test.operand1, test.operand2, test.operator)
+		result, err := calculator.Calculate(test.operand1, test.operand2, test.operator)
 
 		if err != nil && err.Error() != test.err.Error() {
 			t.Errorf("Expected error: %v, got: %v", test.err, err)
@@ -34,7 +38,7 @@ func TestCalculate(t *testing.T) {
 	}
 }
 
-func TestParseOperand(t *testing.T) {
+func TestParseOperand_smoke(t *testing.T) {
 	tests := []struct {
 		input    string
 		expected float64
@@ -46,7 +50,7 @@ func TestParseOperand(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		result, err := ParseOperand(test.input)
+		result, err := calculator.ParseOperand(test.input)
 
 		if err != nil && err.Error() != test.err.Error() {
 			t.Errorf("Expected error: %v, got: %v", test.err, err)
